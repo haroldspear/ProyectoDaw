@@ -1,0 +1,110 @@
+{% extends "helpmapp/Administrador/superAdmin/base.html" %}
+{% load staticfiles %}
+    {% block title %}HelpMapp-Admin:Buscar centro{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/verCentro-estilo.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estiloBuscarCentro.css' %}"> 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.css"/>
+
+{% endblock %}
+  {% block body %}
+    <section class="col-sm-9 col-md-9">
+       <div class="container col-sm-9 col-md-9 ">
+          <h3>Buscar centro de acopio</h3>
+          
+          <h4 class="col-sm-5 locacion">Provincia:</h4>
+          <h4 class="col-sm-5 locacion">Canton: </h4> 
+
+          <form method="Post" class="form-vertical list" action="{% url 'helpmapp.views.buscarCentroAcopio' %}">
+          {% csrf_token %}
+            <div class="form-group col-sm-5 col-md-5 ">
+              <select id="province" name="provincia" class="questionsList"></select>
+            </div>
+            <div class="form-group col-sm-5 col-md-5">
+               <select id='city' name= "ciudad" class="questionsList"></select>
+            </div>
+            <div class="form-group col-sm-2 col-md-2" id="div_submit">
+              <button type="submit" class="btn btn-primary" id="btn-submit">Buscar</button>
+            </div>
+          </form>
+      </div>
+
+<!--INICIO DE LA TABLA -->
+
+    <div class="container col-sm-9 tabla-centros">
+          <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title">Lista de centros de acopio</h3>
+                <div class="pull-right">
+                  <span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
+                    <i class="glyphicon glyphicon-filter"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="panel-body">
+                <input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Developers" />
+              </div>
+              <table class="table table-hover" id="dev-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre de centro</th>
+                    <th>Ciudad</th>
+                    <th>Observar centro</th>
+                  </tr>
+                </thead>
+                <tbody id="tabla-upc">
+                  
+                </tbody>
+                  {% if upc %}
+                  {% for u in upc %}
+                  <tr>
+                    <td>{{u.id}}</td>
+                    <td>{{u.nombre_upc}}</td>
+                    <td>{{u.canton}}</td>
+                    <td><a href="{% url 'helpmapp.views.mostrar_verCentro' id_centro=u.pk %}">Ver centro</a></td>
+                  </tr>
+                {% endfor %}
+                {% else %}
+                   
+                {% endif %}  
+                    
+
+<!--                 <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>Kilgore</td>
+                    <td>Trout</td>
+                    <td>kilgore</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Bob</td>
+                    <td>Loblaw</td>
+                    <td>boblahblah</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>Holden</td>
+                    <td>Caulfield</td>
+                    <td>penceyreject</td>
+                  </tr>
+                </tbody> -->
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+<!-- FIN DE TABLA -->
+
+     </section>
+     {% endblock %}     
+    {% block scripts %}
+    <script src="{% static 'js/listar_cda.js' %}"></script>
+    <script src="{% static 'js/filtrar.js' %}"></script>
+    <script src="{% static 'js/func-tabla.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "helpmapp/Administrador/adminCentro/base.html" %}
+
+{% load staticfiles %}
+{% block title %} HelpMapp-CAcopio:Comida Inventario {% endblock %}
+{% block css %}
+   
+    <link rel="stylesheet" type="text/css" href="{% static 'css/inventarioComida-estilo.css' %}">
+    <script type="text/javascript" src="{% static 'd3/d3.min.js' %}"></script>
+    <script src="{% static 'js/tests/vendor/jquery.min.js' %}"></script>
+{% endblock %}  
+ {% block body %}
+     
+     <div class="container col-sm-12 col-md-12 ">
+          <h3>Comida</h3> 
+          <br>
+          
+     </div>
+     <div class="col-md-5">
+       <div  id="contenedor-tabla">
+       {% if comidas %}
+         
+      {% for comida in comidas %}
+        
+          <form = method="Post" action="{% url 'helpmapp.views.mostrar_inventarioComida' %}">
+            {% csrf_token %}
+            <label>{{comida.nombre_producto}}</label>
+             <input type="hidden" id="name" name="id_producto" value ='{{comida.id}}'> 
+             {% if centro %}
+            <input type="hidden" id="centro" name="id_centro" value ='{{centro.id}}'>
+            {% else %}
+            {% endif %}
+            <input type="number" id="cantidad" name="cantidad" >
+
+            <input type="submit" name="Enviar" value="Enviar">
+          </form>
+       
+        {% endfor %}
+    
+    {% else %}
+        
+      {% endif %} 
+     </div>
+     </div>
+	  
+      <div class="container col-sm-12 col-md-12">
+        <p></p>
+      </div>
+      {% endblock %}
+
+    {% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.1/d3.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    
+    
+  
+    {% endblock %}
+ 

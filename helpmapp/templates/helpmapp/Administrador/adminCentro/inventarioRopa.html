@@ -1,0 +1,51 @@
+{% extends "helpmapp/Administrador/adminCentro/base.html" %}
+
+{% load staticfiles %}
+{% block title %} HelpMapp-CAcopio:Ropa Inventario {% endblock %}
+{% block css %}
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/inventarioRopa-estilo.css' %">
+ {% endblock %}   
+  
+   
+
+ {% block body %}
+     
+     <div class="container">
+          <h3>Ropa</h3> 
+       </div>
+     <div class="col-md-5 col-sm-5" id="contenedor-tabla">
+       
+       {% if ropas %}
+         
+      {% for ropa in ropas %}
+        
+          <form = method="Post" action="{% url 'helpmapp.views.mostrar_inventarioRopa' %}">
+            {% csrf_token %}
+            <label>{{ropa.nombre_producto}}</label>
+             <input type="hidden" id="name" name="id_producto" value ='{{ropa.id}}'> 
+             {% if centro %}
+            <input type="hidden" id="centro" name="id_centro" value ='{{centro.id}}'>
+            {% else %}
+            {% endif %}
+            <input type="number" id="cantidad" name="cantidad" >
+
+            <input type="submit" name="Enviar" value="Enviar">
+          </form>
+       
+        {% endfor %}
+    
+      {% else %}
+        
+      {% endif %}
+      
+     </div>
+        <div class="container col-md-7">
+   
+</div>
+<div ></div>
+   
+ {% endblock %}   
+     
+   

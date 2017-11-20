@@ -1,0 +1,43 @@
+{% extends "helpmapp/Administrador/superAdmin/base.html" %}
+{% load staticfiles %}
+    {% block title %}HelpMapp-Admin:Crear admin{% endblock %}
+{% block css %}
+    <link href="{% static 'css/estiloCrearAdmin.css' %}" rel="stylesheet">
+{% endblock %}  
+     {% block body %}
+     <section class="col-sm-9 col-md-9">
+       <div class="container col-sm-9 col-md-9 ">
+        <h3>Crear administrador</h3>
+        <form method="Post" class="form-horizontal" action="{% url 'helpmapp.views.mostrar_crearAdministrador' %}">
+        {% csrf_token %}
+          <div class="form-group">
+            <label class="control-label col-sm-4" for="oldpass">Nombre de usuario:</label>
+            <div class="col-sm-6">
+              {{ form.nombre_usuario }}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-4" for="newpass">Contraseña:</label>
+            <div class="col-sm-6">          
+              {{ form.contrasena }}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-4" for="oldpass2">Correo:</label>
+            <div class="col-sm-6">
+              {{ form.correo }}
+            </div>
+          </div>
+          <div class="form-group">        
+            <div class="col-sm-offset-2 col-sm-10" id="div_submit">
+              <button type="submit" class="btn btn-primary" id="btn-submit">Crear</button>
+            </div>
+        </div>
+        </form>
+      </div>
+     </section>
+
+     {% endblock %}
+       {% block scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    {% endblock %}
